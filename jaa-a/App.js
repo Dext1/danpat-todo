@@ -1,10 +1,10 @@
-import "./css/index.css";
-import TextAdder from "./TextAdder.js";
+import "./scss/index.scss";
+import MainThing from "./MainThing.js";
+
 function App() {
   return (
     <div className="App">
-      <h1>Grade Tool</h1>
-      <TextAdder />
+      <MainThing />
     </div>
   );
 }
