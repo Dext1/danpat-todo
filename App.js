@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./scss/index.scss";
 import ChangeView from "./ChangeView.js";
+import ChangeView2 from "./ChangeView2.js";
 import TaskInput from "./components/TaskInput.js";
 import TaskList from "./components/TaskList.js";
 import DropDown from "./components/DropDown.js";
 import ChooseDate from "./components/ChooseDate.js";
+import VerticalToggleButtons from "./components/Toggle.js";
+//import ChangeView3 from "./ChangeView3.js";
 //import TaskRemove2 from "./components/TaskRemove2.js";
 //import TaskRemove from "./components/TaskRemove.js";
 
@@ -18,7 +21,7 @@ function App() {
           <div class="header">Kaikki</div>
           <div class="side_menu">
             <ul>
-              <li>
+              <li id="">
                 <a class="side_items" href="#home">
                   Kategoriat
                 </a>
@@ -63,8 +66,10 @@ function App() {
               />
             </p>
           </div>
-          <div class="add_task">Lisää tehtävä</div>
-          <div class="search_task">
+          <div class="add_task" id="add_task">
+            <VerticalToggleButtons />
+          </div>
+          <div class="search_task" id="search_task">
             <ChangeView />
           </div>
         </div>
