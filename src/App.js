@@ -3,19 +3,24 @@ import "./scss/index.scss";
 import ChangeView from "./ChangeView.js";
 import TaskInput from "./components/TaskInput.js";
 import TaskList from "./components/TaskList.js";
-import DropDown from "./components/DropDown.js";
-import ChooseDate from "./components/ChooseDate.js";
 //import TaskRemove2 from "./components/TaskRemove2.js";
 //import TaskRemove from "./components/TaskRemove.js";
 
 function App() {
   const [inputText, setInputText] = useState("");
+  const [header, setHeader] = useState("All");
   const [tasks, setTasks] = useState([]);
+  const [visible, setVisible] = useState(false);
+
+  const addTaskHandler = () => {
+    setVisible(true);
+    setHeader("Add Task");
+  };
   return (
     <div className="App">
       <>
         <div class="container" id="root">
-          <div class="header">Kaikki</div>
+          <div class="header">{header}</div>
           <div class="side_menu">
             <ul>
               <li>
@@ -46,24 +51,30 @@ function App() {
           <div class="due_date">
             Määräaika
             <hr />
-            <ChooseDate />
           </div>
           <div class="priority">
             Pri
             <hr />
-            <DropDown />
           </div>
           <div class="input_field">
             <p class="input_ykss">
-              <TaskInput
-                inputText={inputText}
-                setInputText={setInputText}
-                tasks={tasks}
-                setTasks={setTasks}
-              />
+              {visible && (
+                <TaskInput
+                  inputText={inputText}
+                  setInputText={setInputText}
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  setVisible={setVisible}
+                  setHeader={setHeader}
+                />
+              )}
             </p>
           </div>
-          <div class="add_task">Lisää tehtävä</div>
+          <div class="add_task">
+            <button onClick={addTaskHandler} className="tab-button">
+              Add task
+            </button>
+          </div>
           <div class="search_task">
             <ChangeView />
           </div>
