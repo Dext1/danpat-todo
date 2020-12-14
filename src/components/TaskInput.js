@@ -1,7 +1,6 @@
 import React from "react";
 import Priority from "./Priority.js";
 import ChooseDate from "./ChooseDate.js";
-// import TaskRemove from "./TaskRemove.js";
 const moment = require("moment");
 let id = 0;
 
@@ -28,28 +27,24 @@ const TaskInput = ({
     setHeader("All");
   };
   return (
-    <form>
-      <div class="priority input">
-        Priority
-        <Priority />
-      </div>
+    <form className="new-task">
       <div class="due_date input">
         Deadline
         <ChooseDate />
+      </div>
+      <div class="priority input">
+        Priority
+        <Priority />
       </div>
       <input
         value={inputText}
         onChange={inputTextHandler}
         type="text"
-        className="todo-input"
+        className="text input"
       />
       <button onClick={saveTaskHandler} className="save-button" type="submit">
         Save
       </button>
-      <div className="task">
-        <span>{tasks.name}</span>
-        <button onClick={onRemove}>Remove</button>
-      </div>
     </form>
   );
 };
