@@ -1,43 +1,71 @@
-import React from "react";
-import Priority from "./Priority.js";
+import React, { useState } from "react";
+import axios from "axios";
+//import Priority from "./Priority.js";
 import ChooseDate from "./ChooseDate.js";
+import DropdownSelect from "./DropdownSelect.js";
+import { dropdownValues } from "./DropdownSelect.js";
 const moment = require("moment");
-let id = 0;
+const url = "http://localhost:8080/tasks/";
 
 const TaskInput = ({
-  inputText,
-  setInputText,
+  title,
+  setTitle,
   tasks,
   setTasks,
   onRemove,
   setVisible,
-  dueDate,
   setHeader,
 }) => {
-  const stringifiedDate = moment(dueDate).format("DD-MM-YYYY");
+  const [dueDate, setDueDate] = useState(new Date());
+  const [priority, setPriority] = useState();
+  const [tag, setTag] = useState();
 
+  const addTask = async () => {
+    const hr = await axios.post(url, {
+      title: title,
+      due_date: moment(dueDate).format("YYYY-MM-DD"),
+      priority: priority,
+      tag: tag,
+    });
+    const newTask = hr.data;
+    setTasks([...tasks, newTask]);
+    setVisible(false);
+    setHeader("All");
+    setTitle("");
+  };
   const inputTextHandler = (e) => {
-    console.log(e.target.value);
-    setInputText(e.target.value);
+    setTitle(e.target.value);
   };
   const saveTaskHandler = (e) => {
     e.preventDefault();
-    setTasks([...tasks, { name: inputText, date: stringifiedDate, id: id++ }]);
-    setVisible(false);
-    setHeader("All");
+    if (title) {
+      addTask();
+    }
   };
   return (
     <form className="new-task">
-      <div class="due_date input">
+      <div className="due_date input">
         Deadline
-        <ChooseDate />
+        <ChooseDate dueDate={dueDate} setDueDate={setDueDate} />
       </div>
-      <div class="priority input">
+      <div className="priority input">
         Priority
-        <Priority />
+        <DropdownSelect
+          value={priority}
+          setValue={setPriority}
+          dropdownValues={dropdownValues.priorityValues}
+        />
+      </div>
+      <div className="tag input">
+        Tag
+        <DropdownSelect
+          value={tag}
+          setValue={setTag}
+          dropdownValues={dropdownValues.tagValues}
+        />
       </div>
       <input
-        value={inputText}
+        value={title}
         onChange={inputTextHandler}
         type="text"
         className="text input"

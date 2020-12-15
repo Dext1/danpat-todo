@@ -1,12 +1,16 @@
 import React from "react";
+const moment = require("moment");
 
-const Task = ({ name, date }) => {
+const Task = ({ title, due_date, priority }) => {
+  const formatDate = (date) => {
+    if (date !== null) {
+      return moment(date).format("DD-MM-YYYY");
+    }
+  };
   return (
-    <div className="task">
-      <li className="task-item">
-        {name} {date}
-      </li>
-    </div>
+    <li className="task">
+      {title} {formatDate(due_date)} {priority}
+    </li>
   );
 };
 

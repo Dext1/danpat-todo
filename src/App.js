@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+//import axios from "axios";
 import "./scss/index.scss";
 import ChangeView from "./ChangeView.js";
 import TaskInput from "./components/TaskInput.js";
@@ -7,7 +8,7 @@ import TaskList from "./components/TaskList.js";
 //import TaskRemove from "./components/TaskRemove.js";
 
 function App() {
-  const [inputText, setInputText] = useState("");
+  const [title, setTitle] = useState("");
   const [header, setHeader] = useState("All");
   const [tasks, setTasks] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -19,12 +20,12 @@ function App() {
   return (
     <div className="App">
       <>
-        <div class="container" id="root">
-          <div class="header">{header}</div>
-          <div class="side_menu">
+        <div className="container" id="root">
+          <div className="header">{header}</div>
+          <div className="side_menu">
             <ul>
               <li>
-                <a class="side_items" href="#home">
+                <a className="side_items" href="#home">
                   Kategoriat
                 </a>
               </li>
@@ -39,43 +40,41 @@ function App() {
               </li>
             </ul>
           </div>
-          <div class="done">
+          <div className="done">
             Tehty
             <hr />
           </div>
-          <div class="main">
+          <div className="main">
             Tehtävä
             <hr />
-            <TaskList tasks={tasks} />
+            <TaskList tasks={tasks} setTasks={setTasks} />
           </div>
-          <div class="due_date">
+          <div className="due_date">
             Määräaika
             <hr />
           </div>
-          <div class="priority">
+          <div className="priority">
             Pri
             <hr />
           </div>
-          <div class="input_field">
-            <p class="input_ykss">
-              {visible && (
-                <TaskInput
-                  inputText={inputText}
-                  setInputText={setInputText}
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  setVisible={setVisible}
-                  setHeader={setHeader}
-                />
-              )}
-            </p>
+          <div className="input_field">
+            {visible && (
+              <TaskInput
+                title={title}
+                setTitle={setTitle}
+                tasks={tasks}
+                setTasks={setTasks}
+                setVisible={setVisible}
+                setHeader={setHeader}
+              />
+            )}
           </div>
-          <div class="add_task">
+          <div className="add_task">
             <button onClick={addTaskHandler} className="tab-button">
               Add task
             </button>
           </div>
-          <div class="search_task">
+          <div className="search_task">
             <ChangeView />
           </div>
         </div>
