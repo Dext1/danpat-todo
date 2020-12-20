@@ -3,38 +3,46 @@ import axios from "axios";
 import DropdownSelect, { dropdownValues } from "./DropdownSelect.js";
 const url = "http://localhost:8080/tasks/";
 
-const ViewSearch = ({ searchTerm, setSearchTerm }) => {
-  const [sortValue, setSortValue] = useState(5);
-  const [order, setOrder] = useState();
+const ViewSearch = ({
+  searchValue,
+  setSearchValue,
+  setQueryValue1,
+  setQueryKey1,
+  queryValue2,
+  setQueryValue2,
+  order,
+  setOrder,
+}) => {
   const searchInputTextHandler = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchValue(e.target.value);
   };
   const searchHandler = (e) => {
     e.preventDefault();
-    if (searchTerm) {
+    if (searchValue) {
+      setQueryKey1("search");
+      setQueryValue1(searchValue);
       console.log("searching");
-      setSearchTerm("");
+      setSearchValue("");
     }
   };
   return (
     <div className="input_field">
-      <div className="priority input">
+      <div className="pri_tag input">
         Sort by
         <DropdownSelect
-          value={sortValue}
-          setValue={setSortValue}
+          value={queryValue2}
+          setValue={setQueryValue2}
           dropdownValues={dropdownValues.sortValues}
         />
-      </div>
-      <div className="tag input">
         <DropdownSelect
           value={order}
           setValue={setOrder}
           dropdownValues={dropdownValues.orderValues}
         />
+        <span className="filler">Lorem ipsum sis sos sasas_k!!</span>
       </div>
       <input
-        value={searchTerm}
+        value={searchValue}
         onChange={searchInputTextHandler}
         type="text"
         className="text input"

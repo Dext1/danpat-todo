@@ -45,24 +45,24 @@ const TaskInput = ({
   };
   return (
     <form className="input_field">
-      <div className="due_date input">
-        Deadline
-        <ChooseDate dueDate={dueDate} setDueDate={setDueDate} />
-      </div>
-      <div className="priority input">
-        Priority
+      <div className="due_dater input">
+        <span className="pridd droppi">Priority</span>
         <DropdownSelect
           value={priority}
           setValue={setPriority}
           dropdownValues={dropdownValues.priorityValues}
         />
-      </div>
-      <div className="tag input">
-        Tag
+        <span className="tagdd droppi">Tag</span>
         <DropdownSelect
           value={tag}
           setValue={setTag}
           dropdownValues={dropdownValues.tagValues}
+        />
+        <span>Deadline</span>
+        <ChooseDate
+          className="choose-date"
+          dueDate={dueDate}
+          setDueDate={setDueDate}
         />
       </div>
       <input
