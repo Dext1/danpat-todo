@@ -15,6 +15,9 @@ const TaskList = ({
   setShowEditForm,
   showEditForm,
   setHeader,
+  showForm,
+  trigger,
+  setTrigger,
 }) => {
   useEffect(() => {
     (async () => {
@@ -23,13 +26,11 @@ const TaskList = ({
       );
       const newTasks = hr.data;
       setTasks(newTasks);
-      console.log("get");
     })();
-  }, [tasks.length, queryValue1, queryValue2, queryKey1, order]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [queryValue1, queryValue2, queryKey1, order, trigger]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="list-container">
       <ul className="todo-list">
-        {console.log("listaus")}
         {tasks.map((task) => (
           <Task
             key={task.id}
@@ -39,12 +40,13 @@ const TaskList = ({
             priority={task.priority}
             is_done={task.is_done}
             tag={task.tag}
-            tasks={tasks}
-            setTasks={setTasks}
             setTaskValues={setTaskValues}
             showEditForm={showEditForm}
             setShowEditForm={setShowEditForm}
+            showForm={showForm}
             setHeader={setHeader}
+            trigger={trigger}
+            setTrigger={setTrigger}
           />
         ))}
       </ul>

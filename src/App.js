@@ -5,7 +5,7 @@ import TaskInput from "./components/TaskInput.js";
 import TaskEdit from "./components/TaskEdit.js";
 import TaskList from "./components/TaskList.js";
 import ViewSearch from "./components/ViewSearch";
-export const baseUrl = "http://localhost:8080/tasks";
+export const baseUrl = "https://tamk-4a00ez62-3002-group16.herokuapp.com/tasks";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -22,6 +22,7 @@ function App() {
   const [addButtonStyle, setAddButtonStyle] = useState("tab-button-inactive");
   const [viewButtonStyle, setViewButtonStyle] = useState("tab-button-active");
   const [taskValues, setTaskValues] = useState({});
+  const [trigger, setTrigger] = useState(false);
 
   const addTaskHandler = () => {
     setShowForm(true);
@@ -52,8 +53,8 @@ function App() {
   };
   const deleteHandler = async (e) => {
     e.preventDefault();
-    const hr = axios.delete(`${baseUrl}/completed`);
-    console.log(hr);
+    await axios.delete(`${baseUrl}/completed`);
+    setTrigger(!trigger);
   };
   const resetHandler = (e) => {
     e.preventDefault();
@@ -76,10 +77,10 @@ function App() {
         <div className="container" id="root">
           <div className="header">{header}</div>
           <div className="side_menu">
-            <input type="checkbox" class="my-input" />
-            <span class="tool"></span>
-            <span class="tool"></span>
-            <span class="tool"></span>
+            <input type="checkbox" className="my-input" />
+            <span className="tool"></span>
+            <span className="tool"></span>
+            <span className="tool"></span>
             <ul className="side-list">
               <li>
                 <h3 className="side_items">Categories</h3>
@@ -140,13 +141,17 @@ function App() {
                   #Work
                 </button>
               </li>
+              <li>
+                <button onClick={deleteHandler} className="delete-button">
+                  Delete Completed
+                </button>
+              </li>
+              <li>
+                <button onClick={resetHandler} className="reset-button">
+                  Reset
+                </button>
+              </li>
             </ul>
-            <button onClick={deleteHandler} className="delete-button">
-              Delete Completed
-            </button>
-            <button onClick={resetHandler} className="reset-button">
-              Reset
-            </button>
           </div>
           <div className="done">
             Done
@@ -168,12 +173,12 @@ function App() {
             <TaskInput
               title={title}
               setTitle={setTitle}
-              tasks={tasks}
-              setTasks={setTasks}
               setShowForm={setShowForm}
               setHeader={setHeader}
               setAddButtonStyle={setAddButtonStyle}
               setViewButtonStyle={setViewButtonStyle}
+              trigger={trigger}
+              setTrigger={setTrigger}
             />
           )}
           {showEditForm && (
@@ -188,6 +193,8 @@ function App() {
               setViewButtonStyle={setViewButtonStyle}
               taskValues={taskValues}
               setTaskValues={setTaskValues}
+              trigger={trigger}
+              setTrigger={setTrigger}
             />
           )}
           {!showForm && !showEditForm && (
@@ -222,9 +229,12 @@ function App() {
               queryValue2={queryValue2}
               order={order}
               setTaskValues={setTaskValues}
+              showForm={showForm}
               showEditForm={showEditForm}
               setShowEditForm={setShowEditForm}
               setHeader={setHeader}
+              trigger={trigger}
+              setTrigger={setTrigger}
             />
           </div>
         </div>

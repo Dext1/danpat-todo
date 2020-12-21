@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import DropdownSelect, { dropdownValues } from "./DropdownSelect.js";
 
 const ViewSearch = ({
@@ -26,12 +25,14 @@ const ViewSearch = ({
   return (
     <div className="input_field">
       <div className="pri_tag input">
-        Sort by
+        <span className="sortdd dropi">Sort by</span>
+        <span className="sortdd dropin">by</span>
         <DropdownSelect
           value={queryValue2}
           setValue={setQueryValue2}
           dropdownValues={dropdownValues.sortValues}
         />
+        <span className="filterdd dropin">Sort</span>
         <DropdownSelect
           value={order}
           setValue={setOrder}
