@@ -3,7 +3,7 @@ import axios from "axios";
 import ChooseDate from "./ChooseDate.js";
 import { formatDate } from "./Task.js";
 import DropdownSelect, { dropdownValues } from "./DropdownSelect.js";
-const url = "http://localhost:8080/tasks/";
+import { baseUrl } from "../App.js";
 
 const TaskInput = ({
   title,
@@ -24,7 +24,7 @@ const TaskInput = ({
     setHeader("Tasks");
     setAddButtonStyle("tab-button-inactive");
     setViewButtonStyle("tab-button-active");
-    const hr = await axios.post(url, {
+    const hr = await axios.post(`${baseUrl}/`, {
       title: title,
       due_date: formatDate(dueDate, "YYYY-MM-DD"),
       priority: priority,
